@@ -1,0 +1,776 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Evora Hospital</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <style>
+
+        /* =====================================================
+           SERVICES DROPDOWN
+        ===================================================== */
+
+        .services-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .services-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #51637a;
+            font-weight: 600;
+            padding: 10px 5px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .services-link:hover {
+            color: #1769aa;
+        }
+
+        .services-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+
+            min-width: 250px;
+
+            background: #ffffff;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.12);
+
+            padding: 10px;
+
+            display: none;
+
+            z-index: 1000;
+        }
+
+        .services-menu a {
+            display: block;
+
+            padding: 12px 15px;
+
+            color: #173b5e;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            border-radius: 8px;
+
+            transition: 0.25s;
+        }
+
+        .services-menu a:hover {
+            background: #eef6ff;
+            color: #1769aa;
+        }
+
+        .services-dropdown:hover .services-menu {
+            display: block;
+        }
+
+
+        /* =====================================================
+           SERVICE INFORMATION
+        ===================================================== */
+
+        .service-access-box {
+            max-width: 850px;
+            margin: 40px auto 60px;
+            padding: 35px 30px;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .service-access-box h3 {
+            color: #1769aa;
+            margin-bottom: 12px;
+            font-size: 24px;
+        }
+
+        .service-access-box p {
+            color: #667085;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           ADMIN PORTAL
+        ===================================================== */
+
+        .admin-portal {
+            width: 90%;
+            max-width: 600px;
+
+            margin: 60px auto;
+
+            padding: 40px 30px;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+
+        .admin-portal-icon {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #eef6ff;
+
+            border-radius: 50%;
+
+            font-size: 28px;
+        }
+
+
+        .admin-portal h3 {
+            margin-bottom: 12px;
+
+            font-size: 25px;
+
+            color: #1769aa;
+        }
+
+
+        .admin-portal p {
+            margin-bottom: 25px;
+
+            color: #666;
+
+            line-height: 1.7;
+
+            font-size: 15px;
+        }
+
+
+        .admin-btn {
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            background: #1769aa;
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border-radius: 9px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .admin-btn:hover {
+            background: #0d4f82;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .services-menu {
+                left: 0;
+
+                transform: none;
+
+                min-width: 230px;
+            }
+
+            .admin-portal {
+                margin: 40px auto;
+
+                padding: 30px 20px;
+            }
+
+            .admin-portal h3 {
+                font-size: 21px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+
+    <div class="logo">
+
+        <span>+</span>
+
+        EVORA
+
+        <small>
+            HOSPITAL
+        </small>
+
+    </div>
+
+
+    <nav>
+
+
+        <!-- HOME -->
+
+        <a href="{% url 'home' %}"
+           class="active">
+
+            Home
+
+        </a>
+
+
+        <!-- =================================================
+             SERVICES DROPDOWN
+        ================================================== -->
+
+        <div class="services-dropdown">
+
+            <a href="#services"
+               class="services-link">
+
+                Services ▾
+
+            </a>
+
+
+            <div class="services-menu">
+
+
+                <!-- FIND DOCTORS -->
+
+                <a href="{% url 'service_password' 'doctors' %}">
+
+                    👨‍⚕️ &nbsp; Find Doctors
+
+                </a>
+
+
+                <!-- BOOK APPOINTMENT -->
+
+                <a href="{% url 'service_password' 'appointment' %}">
+
+                    📅 &nbsp; Book Appointment
+
+                </a>
+
+
+                <!-- DEPARTMENTS -->
+
+                <a href="{% url 'service_password' 'departments' %}">
+
+                    🏥 &nbsp; Departments
+
+                </a>
+
+
+                <!-- PATIENT RECORDS -->
+
+                <a href="{% url 'service_password' 'records' %}">
+
+                    📋 &nbsp; Patient Records
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- ABOUT -->
+
+        <a href="#about">
+
+            About
+
+        </a>
+
+
+        <!-- CONTACT -->
+
+        <a href="#contact">
+
+            Contact
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- =================================================
+         LOGIN / REGISTER
+    ================================================== -->
+
+    <div class="nav-buttons">
+
+
+        <a href="{% url 'patient_login' %}"
+           class="login-btn">
+
+            Login
+
+        </a>
+
+
+        <a href="{% url 'register_choice' %}"
+           class="register-btn">
+
+            Register
+
+        </a>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero">
+
+
+    <div class="hero-content">
+
+
+        <p class="welcome">
+
+            WELCOME TO EVORA HOSPITAL
+
+        </p>
+
+
+        <h1>
+
+            Your Health,<br>
+
+            <span>
+
+                Our Priority.
+
+            </span>
+
+        </h1>
+
+
+        <p class="hero-text">
+
+            Quality healthcare with trusted doctors,
+            modern facilities and easy online appointment
+            booking.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <!-- BOOK APPOINTMENT -->
+
+            <a href="{% url 'service_password' 'appointment' %}"
+               class="primary-btn">
+
+                Book an Appointment
+
+            </a>
+
+
+            <!-- FIND DOCTOR -->
+
+            <a href="{% url 'service_password' 'doctors' %}"
+               class="secondary-btn">
+
+                Find a Doctor
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- HERO CARD -->
+
+    <div class="hero-card">
+
+
+        <div class="doctor-icon">
+
+            +
+
+        </div>
+
+
+        <h2>
+
+            Healthcare Made Simple
+
+        </h2>
+
+
+        <p>
+
+            Find doctors, check availability and
+            book your appointment easily.
+
+        </p>
+
+
+        <div class="card-stats">
+
+
+            <div>
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    Support
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    50+
+                </strong>
+
+                <span>
+                    Doctors
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    10K+
+                </strong>
+
+                <span>
+                    Patients
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section class="services"
+         id="services">
+
+
+    <div class="section-title">
+
+
+        <p>
+
+            OUR SERVICES
+
+        </p>
+
+
+        <h2>
+
+            Complete Healthcare Solutions
+
+        </h2>
+
+
+        <span>
+
+            Access our healthcare services securely
+            through the Services menu above.
+
+        </span>
+
+
+    </div>
+
+
+
+    <!-- SERVICE ACCESS INFORMATION -->
+
+    <div class="service-access-box">
+
+
+        <h3>
+
+            🔐 Secure Healthcare Services
+
+        </h3>
+
+
+        <p>
+
+            Find doctors, book appointments,
+            explore hospital departments and
+            access patient records through our
+            secure service portal.
+
+            <br><br>
+
+            Select a service from the
+            <strong>Services</strong> menu above
+            to continue.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="about"
+         id="about">
+
+
+    <div class="about-content">
+
+
+        <p>
+
+            WHY CHOOSE EVORA?
+
+        </p>
+
+
+        <h2>
+
+            Healthcare You Can Trust
+
+        </h2>
+
+
+        <p>
+
+            Evora Hospital provides a simple and convenient
+            digital healthcare experience. Patients can find
+            doctors, check available slots and manage their
+            appointments online.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="about-box">
+
+
+        <div>
+
+            <strong>
+                50+
+            </strong>
+
+            <span>
+                Expert Doctors
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                15+
+            </strong>
+
+            <span>
+                Departments
+            </span>
+
+        </div>
+
+
+        <div>
+
+            <strong>
+                10K+
+            </strong>
+
+            <span>
+                Happy Patients
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     ADMIN PORTAL
+===================================================== -->
+
+<section class="admin-portal">
+
+
+    <div class="admin-portal-icon">
+
+        🔐
+
+    </div>
+
+
+    <h3>
+
+        Hospital Administration
+
+    </h3>
+
+
+    <p>
+
+        Authorized administrators can manage
+        doctors, patients, appointments and
+        hospital activities.
+
+    </p>
+
+
+    <a href="{% url 'admin:index' %}"
+       class="admin-btn">
+
+        🔐 Admin Portal
+
+    </a>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer id="contact">
+
+
+    <div class="footer-logo">
+
+        <span>+</span>
+
+        EVORA HOSPITAL
+
+    </div>
+
+
+    <p>
+
+        Quality healthcare. Trusted doctors.
+        Better lives.
+
+    </p>
+
+
+    <p class="copyright">
+
+        © 2026 Evora Hospital.
+        All Rights Reserved.
+
+    </p>
+
+
+</footer>
+
+
+
+</body>
+
+</html>

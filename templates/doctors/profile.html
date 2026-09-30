@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Profile | EVORA HOSPITAL</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* =========================================
+           LAYOUT
+        ========================================= */
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+            width: 250px;
+            background: #0b2945;
+            color: white;
+            padding: 25px 15px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo h2 {
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+
+        .logo p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            display: block;
+            padding: 14px 16px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .menu-item:hover {
+            background: #123b63;
+            color: white;
+        }
+
+        .menu-item.active {
+            background: #16a085;
+            color: white;
+        }
+
+        .logout {
+            margin-top: 25px;
+            background: #7f1d1d;
+            color: white;
+        }
+
+        .logout:hover {
+            background: #991b1b;
+        }
+
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 30px;
+        }
+
+
+        /* =========================================
+           TOP HEADER
+        ========================================= */
+
+        .top-header {
+            background: white;
+            padding: 22px 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .top-header h1 {
+            font-size: 28px;
+            color: #123b63;
+        }
+
+        .top-header p {
+            margin-top: 7px;
+            color: #6b7280;
+        }
+
+
+        /* =========================================
+           MESSAGES
+        ========================================= */
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+
+        /* =========================================
+           PROFILE HEADER
+        ========================================= */
+
+        .profile-header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #16a085;
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .profile-info h2 {
+            font-size: 25px;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .profile-info p {
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .doctor-badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: #047857;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+
+        /* =========================================
+           FORM CARD
+        ========================================= */
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #123b63;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #16a085;
+            box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+
+        /* =========================================
+           AVAILABILITY
+        ========================================= */
+
+        .availability-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .availability-title {
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-row input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-row label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .button-area {
+            margin-top: 30px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .save-button {
+            border: none;
+            background: #16a085;
+            color: white;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .save-button:hover {
+            background: #12876f;
+        }
+
+        .back-button {
+            text-decoration: none;
+            background: #e5e7eb;
+            color: #374151;
+            padding: 13px 25px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .back-button:hover {
+            background: #d1d5db;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+                width: calc(100% - 210px);
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .container {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 15px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+
+            .button-area {
+                flex-direction: column;
+            }
+
+            .save-button,
+            .back-button {
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h2>EVORA</h2>
+
+            <p>HOSPITAL</p>
+
+        </div>
+
+
+        <nav class="menu">
+
+
+            <a
+                href="{% url 'doctor_dashboard' %}"
+                class="menu-item"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="{% url 'doctor_appointments' %}"
+                class="menu-item"
+            >
+                Appointments
+            </a>
+
+
+            <a
+                href="{% url 'doctor_patients' %}"
+                class="menu-item"
+            >
+                Patients
+            </a>
+
+
+            <a
+                href="{% url 'doctor_profile' %}"
+                class="menu-item active"
+            >
+                My Profile
+            </a>
+
+
+            <a
+                href="{% url 'doctor_logout' %}"
+                class="menu-item logout"
+            >
+                Logout
+            </a>
+
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================= -->
+
+    <main class="main">
+
+
+        <!-- TOP HEADER -->
+
+        <div class="top-header">
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Manage your professional and personal information
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================================
+             DJANGO MESSAGES
+        ========================================= -->
+
+        {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+            <div class="message">
+
+                {{ message }}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- =========================================
+             PROFILE HEADER
+        ========================================= -->
+
+        <div class="profile-header">
+
+
+            <div class="profile-avatar">
+
+                {% if user.first_name %}
+
+                    {{ user.first_name|first|upper }}
+
+                {% else %}
+
+                    D
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <h2>
+
+                    Dr.
+
+                    {% if user.get_full_name %}
+
+                        {{ user.get_full_name }}
+
+                    {% else %}
+
+                        {{ user.username }}
+
+                    {% endif %}
+
+                </h2>
+
+
+                <p>
+                    {{ user.email|default:"Email not provided" }}
+                </p>
+
+
+                {% if doctor.specialization %}
+
+                    <span class="doctor-badge">
+
+                        {{ doctor.get_specialization_display }}
+
+                    </span>
+
+                {% else %}
+
+                    <span class="doctor-badge">
+
+                        Doctor
+
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             FORM
+        ========================================= -->
+
+        <div class="form-card">
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+
+                <!-- =================================
+                     PERSONAL INFORMATION
+                ================================= -->
+
+                <h2 class="section-title">
+
+                    Personal Information
+
+                </h2>
+
+
+                <div class="form-grid">
+
+
+                    <!-- FIRST NAME -->
+
+                    <div class="form-group">
+
+                        <label for="first_name">
+                            First Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="first_name"
+                            name="first_name"
+                            value="{{ user.first_name }}"
+                            placeholder="Enter first name"
+                        >
+
+                    </div>
+
+
+
+                    <!-- LAST NAME -->
+
+                    <div class="form-group">
+
+                        <label for="last_name">
+                            Last Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="last_name"
+                            name="last_name"
+                            value="{{ user.last_name }}"
+                            placeholder="Enter last name"
+                        >
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ user.email }}"
+                            placeholder="Enter email"
+                        >
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="phone"
+                            name="phone"
+                            value="{{ user.phone }}"
+                            placeholder="Enter phone number"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     PROFESSIONAL INFORMATION
+                ================================= -->
+
+                <h2
+                    class="section-title"
+                    style="margin-top: 35px;"
+                >
+
+                    Professional Information
+
+                </h2>
+
+
+                <div class="form-grid">
+
+
+                    <!-- SPECIALIZATION -->
+
+                    <div class="form-group">
+
+                        <label for="specialization">
+                            Specialization
+                        </label>
+
+                        <select
+                            id="specialization"
+                            name="specialization"
+                        >
+
+                            <option value="">
+                                Select specialization
+                            </option>
+
+
+                            {% for value, label in specializations %}
+
+                            <option
+                                value="{{ value }}"
+                                {% if doctor.specialization == value %}
+                                    selected
+                                {% endif %}
+                            >
+
+                                {{ label }}
+
+                            </option>
+
+                            {% endfor %}
+
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- QUALIFICATION -->
+
+                    <div class="form-group">
+
+                        <label for="qualification">
+                            Qualification
+                        </label>
+
+                        <input
+                            type="text"
+                            id="qualification"
+                            name="qualification"
+                            value="{{ doctor.qualification }}"
+                            placeholder="Example: MBBS, MD"
+                        >
+
+                    </div>
+
+
+
+                    <!-- EXPERIENCE -->
+
+                    <div class="form-group">
+
+                        <label for="experience">
+                            Experience (Years)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="experience"
+                            name="experience"
+                            value="{{ doctor.experience }}"
+                            min="0"
+                            placeholder="Years of experience"
+                        >
+
+                    </div>
+
+
+
+                    <!-- CONSULTATION FEE -->
+
+                    <div class="form-group">
+
+                        <label for="consultation_fee">
+                            Consultation Fee (₹)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="consultation_fee"
+                            name="consultation_fee"
+                            value="{{ doctor.consultation_fee }}"
+                            min="0"
+                            step="0.01"
+                            placeholder="Enter consultation fee"
+                        >
+
+                    </div>
+
+
+
+                    <!-- AVAILABLE DAYS -->
+
+                    <div class="form-group">
+
+                        <label for="available_days">
+                            Available Days
+                        </label>
+
+                        <input
+                            type="text"
+                            id="available_days"
+                            name="available_days"
+                            value="{{ doctor.available_days }}"
+                            placeholder="Example: Monday, Wednesday, Friday"
+                        >
+
+                    </div>
+
+
+
+                    <!-- AVAILABLE TIME -->
+
+                    <div class="form-group">
+
+                        <label for="available_time">
+                            Available Time
+                        </label>
+
+                        <input
+                            type="text"
+                            id="available_time"
+                            name="available_time"
+                            value="{{ doctor.available_time }}"
+                            placeholder="Example: 10:00 AM - 2:00 PM"
+                        >
+
+                    </div>
+
+
+
+                    <!-- BIO -->
+
+                    <div class="form-group full">
+
+                        <label for="bio">
+                            Professional Bio
+                        </label>
+
+                        <textarea
+                            id="bio"
+                            name="bio"
+                            placeholder="Write a short professional description..."
+                        >{{ doctor.bio }}</textarea>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     AVAILABILITY
+                ================================= -->
+
+                <div class="availability-box">
+
+                    <div class="availability-title">
+
+                        Doctor Availability
+
+                    </div>
+
+
+                    <div class="checkbox-row">
+
+                        <input
+                            type="checkbox"
+                            id="is_available"
+                            name="is_available"
+                            {% if doctor.is_available %}
+                                checked
+                            {% endif %}
+                        >
+
+
+                        <label for="is_available">
+
+                            I am currently available for appointments
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     BUTTONS
+                ================================= -->
+
+                <div class="button-area">
+
+
+                    <a
+                        href="{% url 'doctor_dashboard' %}"
+                        class="back-button"
+                    >
+
+                        Back to Dashboard
+
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                    >
+
+                        Save Changes
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+
+</html>

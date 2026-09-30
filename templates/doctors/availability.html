@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Availability | Evora Hospital</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f8fc;
+            color: #172b4d;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #0b2945;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 10px;
+            background: #16a085;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            color: #d9e7f2;
+            text-decoration: none;
+            padding: 13px 15px;
+            border-radius: 9px;
+            font-size: 14px;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            background: #123b63;
+            color: white;
+        }
+
+        .menu a.active {
+            background: #16a085;
+            color: white;
+        }
+
+        /* ================= LOGOUT ================= */
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+        }
+
+        .logout a {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background: #c0392b;
+            color: white;
+            border-radius: 9px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .logout a:hover {
+            background: #a93226;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        /* ================= TOPBAR ================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 28px;
+            color: #123b63;
+        }
+
+        .doctor-name {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 10px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(18, 59, 99, 0.08);
+
+            font-size: 13px;
+            color: #425466;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .availability-card {
+            max-width: 750px;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(18, 59, 99, 0.08);
+        }
+
+        .availability-header {
+            margin-bottom: 30px;
+        }
+
+        .availability-header h2 {
+            color: #123b63;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .availability-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* ================= FORM ================= */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #123b63;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+
+            border: 1px solid #dce4ec;
+            border-radius: 9px;
+
+            font-size: 14px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #16a085;
+        }
+
+        .form-help {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #718096;
+        }
+
+        /* ================= CHECKBOX ================= */
+
+        .availability-toggle {
+            background: #f5f8fc;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .availability-toggle input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .availability-toggle label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #123b63;
+            cursor: pointer;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .save-button {
+            border: none;
+            background: #16a085;
+            color: white;
+
+            padding: 13px 25px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .save-button:hover {
+            background: #12866f;
+        }
+
+        .back-button {
+            background: #e9eef4;
+            color: #123b63;
+
+            padding: 13px 25px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            background: #dce4ec;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            margin-top: 25px;
+            background: #eef7ff;
+            border-left: 4px solid #1976d2;
+            padding: 15px 18px;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            font-size: 14px;
+            color: #123b63;
+            margin-bottom: 6px;
+        }
+
+        .info-box p {
+            font-size: 12px;
+            color: #5b6b7c;
+            line-height: 1.6;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #718096;
+            font-size: 12px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .availability-card {
+                padding: 25px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            +
+        </div>
+
+        EVORA HOSPITAL
+
+    </div>
+
+
+    <div class="menu">
+
+        <a href="http://127.0.0.1:8000/doctor/dashboard/">
+            🏠 Dashboard
+        </a>
+
+        <a href="http://127.0.0.1:8000/appointments/doctor/">
+            📅 Appointments
+        </a>
+
+        <a href="http://127.0.0.1:8000/doctor/patients/">
+            👥 Patients
+        </a>
+
+        <a href="http://127.0.0.1:8000/doctor/profile/">
+            👨‍⚕️ My Profile
+        </a>
+
+        <a href="http://127.0.0.1:8000/doctor/availability/"
+           class="active">
+            🕐 Availability
+        </a>
+
+    </div>
+
+
+    <div class="logout">
+
+        <a href="http://127.0.0.1:8000/doctor/logout/">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <h1>
+            Doctor Availability
+        </h1>
+
+        <div class="doctor-name">
+
+            👨‍⚕️ Dr.
+
+            {{ doctor.user.get_full_name|default:doctor.user.username }}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= CARD ================= -->
+
+    <div class="availability-card">
+
+
+        <div class="availability-header">
+
+            <h2>
+                🕐 Manage Availability
+            </h2>
+
+            <p>
+                Set the days and time when patients can book
+                appointments with you.
+            </p>
+
+        </div>
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- AVAILABLE DAYS -->
+
+            <div class="form-group">
+
+                <label for="available_days">
+                    📅 Available Days
+                </label>
+
+                <input
+                    type="text"
+                    id="available_days"
+                    name="available_days"
+                    value="{{ doctor.available_days }}"
+                    placeholder="Example: Monday, Wednesday, Friday"
+                >
+
+                <div class="form-help">
+                    Enter the days you are available for appointments.
+                </div>
+
+            </div>
+
+
+
+            <!-- AVAILABLE TIME -->
+
+            <div class="form-group">
+
+                <label for="available_time">
+                    ⏰ Available Time
+                </label>
+
+                <input
+                    type="text"
+                    id="available_time"
+                    name="available_time"
+                    value="{{ doctor.available_time }}"
+                    placeholder="Example: 10:00 AM - 1:00 PM"
+                >
+
+                <div class="form-help">
+                    Enter your consultation time.
+                </div>
+
+            </div>
+
+
+
+            <!-- AVAILABILITY STATUS -->
+
+            <div class="availability-toggle">
+
+                <input
+                    type="checkbox"
+                    id="is_available"
+                    name="is_available"
+                    {% if doctor.is_available %}
+                        checked
+                    {% endif %}
+                >
+
+                <label for="is_available">
+                    I am currently available for appointments
+                </label>
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="save-button">
+
+                    💾 Save Availability
+
+                </button>
+
+
+                <a
+                    href="http://127.0.0.1:8000/doctor/dashboard/"
+                    class="back-button">
+
+                    ← Back to Dashboard
+
+                </a>
+
+            </div>
+
+        </form>
+
+
+
+        <!-- ================= INFO ================= -->
+
+        <div class="info-box">
+
+            <h3>
+                💡 How Availability Works
+            </h3>
+
+            <p>
+                Patients can view your availability before
+                booking an appointment. If you turn off the
+                availability option, patients will not be able
+                to book new appointments with you.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        © 2026 Evora Hospital.
+        Doctor Portal.
+
+    </footer>
+
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Evora Hospital</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef7f8,
+                    #f8fbfc
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .login-container {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .logo {
+
+            text-align: center;
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            color: #087f8c;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .logo span {
+
+            color: #10a5b5;
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            color: #1d2939;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #667085;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #344054;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #d0d5dd;
+
+            border-radius: 9px;
+
+            outline: none;
+
+        }
+
+
+        input:focus {
+
+            border-color: #087f8c;
+
+        }
+
+
+        .login-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #087f8c;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        .bottom-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #667085;
+
+            font-size: 14px;
+
+        }
+
+
+        .bottom-text a {
+
+            color: #087f8c;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+        }
+
+
+        .home-link {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #667085;
+
+            font-size: 13px;
+
+            text-decoration: none;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-container">
+
+
+    <div class="logo">
+
+        <span>+</span> EVORA HOSPITAL
+
+    </div>
+
+
+    <h1>
+
+        Welcome Back
+
+    </h1>
+
+
+    <p class="subtitle">
+
+        Login to manage your appointments
+
+    </p>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <p style="
+                color:#b42318;
+                background:#fef3f2;
+                padding:10px;
+                border-radius:8px;
+                margin-bottom:15px;
+                font-size:14px;
+            ">
+
+                {{ message }}
+
+            </p>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="login-btn"
+        >
+
+            Login to Account
+
+        </button>
+
+
+    </form>
+
+
+    <div class="bottom-text">
+
+        Don't have an account?
+
+        <a href="{% url 'patient_register' %}">
+            Create Account
+        </a>
+
+    </div>
+
+
+    <a
+        href="{% url 'home' %}"
+        class="home-link"
+    >
+
+        ← Back to Home
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>

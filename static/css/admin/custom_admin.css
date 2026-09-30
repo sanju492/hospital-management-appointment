@@ -1,0 +1,490 @@
+/* =========================================================
+   EVORA HOSPITAL - DJANGO ADMIN THEME
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+body {
+    background: #f4f8fc !important;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif !important;
+
+    color: #173b5e !important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#header {
+    background: #ffffff !important;
+
+    color: #173b5e !important;
+
+    border-bottom: 1px solid #e5edf5;
+
+    min-height: 70px;
+
+    box-shadow:
+        0 3px 15px rgba(23, 59, 94, 0.07);
+}
+
+
+/* =========================================================
+   EVORA LOGO
+========================================================= */
+
+#site-name {
+    display: flex;
+
+    align-items: center;
+
+    height: 70px;
+}
+
+
+#site-name a {
+    color: #173b5e !important;
+
+    text-decoration: none !important;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.evora-plus {
+    color: #1976d2;
+
+    font-size: 34px;
+
+    margin-right: 4px;
+}
+
+
+.evora-name {
+    color: #173b5e;
+}
+
+
+.evora-hospital {
+    color: #1976d2;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    margin-left: 7px;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   USER AREA
+========================================================= */
+
+#user-tools {
+    color: #667085 !important;
+
+    font-size: 13px;
+}
+
+
+#user-tools a {
+    color: #1769aa !important;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+
+#user-tools a:hover {
+    color: #0d4f82 !important;
+}
+
+
+/* =========================================================
+   ADMIN PORTAL LABEL
+========================================================= */
+
+.evora-admin-label {
+    background: #eef6ff;
+
+    color: #1769aa;
+
+    padding: 13px 30px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #dbeaf7;
+}
+
+
+.evora-admin-label span {
+    margin-right: 8px;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+#content {
+    padding: 30px 35px !important;
+}
+
+
+#content-main {
+    max-width: 1250px;
+}
+
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+#content h1 {
+    color: #173b5e !important;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   MODULE / APP SECTIONS
+========================================================= */
+
+.module {
+    background: #ffffff !important;
+
+    border: 1px solid #e2ebf3 !important;
+
+    border-radius: 12px !important;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px rgba(23, 59, 94, 0.05);
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   APP HEADER
+========================================================= */
+
+.module caption,
+.module h2 {
+    background: #1769aa !important;
+
+    color: #ffffff !important;
+
+    padding: 14px 18px !important;
+
+    font-size: 14px !important;
+
+    font-weight: 700 !important;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+.module caption a {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   TABLE ROWS
+========================================================= */
+
+.module tr {
+    border-bottom: 1px solid #edf2f7;
+}
+
+
+.module tr:last-child {
+    border-bottom: none;
+}
+
+
+.module th,
+.module td {
+    padding: 14px 18px !important;
+}
+
+
+.module th {
+    color: #173b5e;
+
+    font-weight: 600;
+}
+
+
+.module td {
+    color: #667085;
+}
+
+
+.module tr:hover {
+    background: #f7fbff;
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+    color: #1769aa;
+}
+
+
+a:hover {
+    color: #0d4f82;
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.addlink {
+    color: #15803d !important;
+
+    font-weight: 700 !important;
+}
+
+
+.addlink:hover {
+    color: #166534 !important;
+}
+
+
+/* =========================================================
+   CHANGE BUTTON
+========================================================= */
+
+.changelink {
+    color: #1769aa !important;
+
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   RECENT ACTIONS
+========================================================= */
+
+#content-related {
+    margin-top: 10px;
+}
+
+
+#content-related .module {
+    border-radius: 12px !important;
+}
+
+
+#content-related h2 {
+    background: #eef6ff !important;
+
+    color: #1769aa !important;
+
+    border-bottom: 1px solid #dceaf7;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+    background: #1769aa !important;
+
+    border: none !important;
+
+    border-radius: 8px !important;
+
+    color: #ffffff !important;
+
+    padding: 10px 18px !important;
+
+    font-weight: 600 !important;
+
+    cursor: pointer;
+}
+
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+a.button:hover {
+    background: #0d4f82 !important;
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+input,
+select,
+textarea {
+    border: 1px solid #d6e1eb !important;
+
+    border-radius: 7px !important;
+
+    padding: 9px !important;
+
+    color: #173b5e !important;
+
+    background: #ffffff !important;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #1769aa !important;
+
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 170, 0.10) !important;
+
+    outline: none !important;
+}
+
+
+/* =========================================================
+   BREADCRUMBS
+========================================================= */
+
+.breadcrumbs {
+    background: #eef6ff !important;
+
+    color: #667085 !important;
+
+    border-bottom: 1px solid #dceaf7;
+
+    padding: 12px 35px !important;
+}
+
+
+.breadcrumbs a {
+    color: #1769aa !important;
+}
+
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.messagelist li {
+    border-radius: 8px !important;
+
+    padding: 12px 16px !important;
+
+    margin-bottom: 10px !important;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.messagelist .success {
+    background: #ecfdf3 !important;
+
+    color: #166534 !important;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.messagelist .error {
+    background: #fef2f2 !important;
+
+    color: #b91c1c !important;
+}
+
+
+/* =========================================================
+   SELECTED / ACTION ROWS
+========================================================= */
+
+.row1 {
+    background: #ffffff !important;
+}
+
+
+.row2 {
+    background: #f8fbfe !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+#footer {
+    background: transparent !important;
+
+    color: #98a2b3 !important;
+
+    padding: 30px !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #content {
+        padding: 20px !important;
+    }
+
+    #site-name a {
+        font-size: 20px;
+    }
+
+    .evora-hospital {
+        display: none;
+    }
+
+    .evora-admin-label {
+        padding: 12px 20px;
+    }
+
+}

@@ -1,0 +1,568 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Registration | Evora Hospital</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef7f8,
+                    #f8fbfc
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 30px;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 850px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.08);
+
+            padding: 40px;
+
+        }
+
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        .logo {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #087f8c;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .logo span {
+
+            color: #10a5b5;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 28px;
+
+            color: #1d2939;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .header p {
+
+            color: #667085;
+
+            font-size: 14px;
+
+        }
+
+
+        .message {
+
+            padding: 12px 15px;
+
+            margin-bottom: 20px;
+
+            border-radius: 8px;
+
+            background: #fff4e5;
+
+            color: #9a6700;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        .form-group.full {
+
+            grid-column: span 2;
+
+        }
+
+
+        label {
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #344054;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #d0d5dd;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+
+        }
+
+
+        input:focus,
+        select:focus {
+
+            border-color: #0b8f9d;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(11, 143, 157, 0.1);
+
+        }
+
+
+        .register-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            margin-top: 25px;
+
+            border-radius: 9px;
+
+            background: #087f8c;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+        .register-btn:hover {
+
+            background: #066b76;
+
+        }
+
+
+        .bottom-text {
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #667085;
+
+            font-size: 14px;
+
+        }
+
+
+        .bottom-text a {
+
+            color: #087f8c;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+        }
+
+
+        .home-link {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #667085;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .container {
+
+                padding: 25px;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .form-group.full {
+
+                grid-column: span 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="header">
+
+        <div class="logo">
+
+            <span>+</span> EVORA HOSPITAL
+
+        </div>
+
+
+        <h1>
+
+            Create Patient Account
+
+        </h1>
+
+
+        <p>
+
+            Register to manage your healthcare appointments
+
+        </p>
+
+    </div>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <div class="form-grid">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    name="first_name"
+                    placeholder="Enter your full name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Choose a username"
+                    required
+                >
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label>
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter phone number"
+                    maxlength="15"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Create password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <div class="form-group">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- AGE -->
+
+            <div class="form-group">
+
+                <label>
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    name="age"
+                    placeholder="Enter your age"
+                    min="1"
+                    max="120"
+                    required
+                >
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="form-group">
+
+                <label>
+                    Gender
+                </label>
+
+                <select
+                    name="gender"
+                    required
+                >
+
+                    <option value="">
+                        Select Gender
+                    </option>
+
+                    <option value="male">
+                        Male
+                    </option>
+
+                    <option value="female">
+                        Female
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="register-btn"
+        >
+
+            Create Account
+
+        </button>
+
+
+    </form>
+
+
+    <div class="bottom-text">
+
+        Already have an account?
+
+        <a href="{% url 'patient_login' %}">
+            Login
+        </a>
+
+    </div>
+
+
+    <a
+        href="{% url 'home' %}"
+        class="home-link"
+    >
+
+        ← Back to Home
+
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>

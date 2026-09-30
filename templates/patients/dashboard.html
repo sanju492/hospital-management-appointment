@@ -1,0 +1,766 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard | Evora Hospital</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/patient_dashboard.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            +
+        </div>
+
+        <div class="logo-text">
+
+            <h2>EVORA</h2>
+
+            <span>HOSPITAL</span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <a href="{% url 'patient_dashboard' %}"
+           class="menu-item active">
+
+            <span class="menu-icon">⌂</span>
+
+            <span>Dashboard</span>
+
+        </a>
+
+
+        <a href="{% url 'doctor_list' %}"
+           class="menu-item">
+
+            <span class="menu-icon">👨‍⚕️</span>
+
+            <span>Find Doctors</span>
+
+        </a>
+
+
+        <a href="{% url 'book_appointment' %}"
+           class="menu-item">
+
+            <span class="menu-icon">📅</span>
+
+            <span>Book Appointment</span>
+
+        </a>
+
+
+        <a href="{% url 'my_appointments' %}"
+           class="menu-item">
+
+            <span class="menu-icon">📋</span>
+
+            <span>My Appointments</span>
+
+        </a>
+
+
+        <!-- MY PROFILE -->
+
+        <a href="{% url 'patient_profile' %}"
+           class="menu-item">
+
+            <span class="menu-icon">👤</span>
+
+            <span>My Profile</span>
+
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="{% url 'home' %}"
+           class="menu-item">
+
+            <span class="menu-icon">←</span>
+
+            <span>Back to Home</span>
+
+        </a>
+
+
+        <a href="{% url 'patient_logout' %}"
+           class="menu-item logout">
+
+            <span class="menu-icon">⇥</span>
+
+            <span>Logout</span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="main-content">
+
+
+    <header class="topbar">
+
+        <div class="page-heading">
+
+            <p class="small-title">
+                Patient Portal
+            </p>
+
+            <h1>
+                Patient Dashboard
+            </h1>
+
+        </div>
+
+
+        <div class="user-area">
+
+            <div class="notification">
+                🔔
+            </div>
+
+
+            <div class="user-info">
+
+                <div class="avatar">
+
+                    {{ user.first_name|default:user.username|first|upper }}
+
+                </div>
+
+
+                <div class="user-details">
+
+                    <strong>
+
+                        {{ user.first_name|default:user.username }}
+
+                    </strong>
+
+                    <span>
+                        Patient
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MESSAGES
+    ===================================================== -->
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+
+    <!-- =====================================================
+         WELCOME CARD
+    ===================================================== -->
+
+    <section class="welcome-card">
+
+        <div class="welcome-text">
+
+            <span class="welcome-label">
+                EVORA HOSPITAL
+            </span>
+
+
+            <h2>
+
+                Welcome,
+                {{ user.first_name|default:user.username }}! 👋
+
+            </h2>
+
+
+            <p>
+
+                Manage your appointments, find doctors,
+                and access your healthcare information
+                from one place.
+
+            </p>
+
+        </div>
+
+
+        <div class="welcome-icon">
+            🏥
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         STATISTICS
+    ===================================================== -->
+
+    <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon blue">
+                📅
+            </div>
+
+            <div class="stat-content">
+
+                <p>
+                    Upcoming Appointments
+                </p>
+
+                <h3>
+                    {{ upcoming_count|default:"0" }}
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon green">
+                ✓
+            </div>
+
+            <div class="stat-content">
+
+                <p>
+                    Completed Visits
+                </p>
+
+                <h3>
+                    {{ completed_count|default:"0" }}
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon orange">
+                ⏳
+            </div>
+
+            <div class="stat-content">
+
+                <p>
+                    Pending Requests
+                </p>
+
+                <h3>
+                    {{ pending_count|default:"0" }}
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon purple">
+                👨‍⚕️
+            </div>
+
+            <div class="stat-content">
+
+                <p>
+                    Doctors Available
+                </p>
+
+                <h3>
+                    {{ doctors_count|default:"0" }}
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DASHBOARD GRID
+    ===================================================== -->
+
+    <section class="dashboard-grid">
+
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="dashboard-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                    <p>
+                        Access your healthcare services
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <a href="{% url 'doctor_list' %}"
+                   class="action-card">
+
+                    <div class="action-icon">
+                        👨‍⚕️
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Find a Doctor
+                        </h3>
+
+                        <p>
+                            Search doctors by specialization
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+                <a href="{% url 'book_appointment' %}"
+                   class="action-card">
+
+                    <div class="action-icon">
+                        📅
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            Book Appointment
+                        </h3>
+
+                        <p>
+                            Schedule a consultation
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+                <a href="{% url 'my_appointments' %}"
+                   class="action-card">
+
+                    <div class="action-icon">
+                        📋
+                    </div>
+
+                    <div class="action-content">
+
+                        <h3>
+                            My Appointments
+                        </h3>
+
+                        <p>
+                            View your appointment history
+                        </p>
+
+                    </div>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             PATIENT PROFILE
+        ===================================================== -->
+
+        <div class="dashboard-card profile-card">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        My Profile
+                    </h2>
+
+                    <p>
+                        Your personal information
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-details">
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Full Name
+                    </span>
+
+                    <strong>
+
+                        {{ user.get_full_name|default:user.username }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Username
+                    </span>
+
+                    <strong>
+
+                        {{ user.username }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong>
+
+                        {{ user.email|default:"Not provided" }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Phone
+                    </span>
+
+                    <strong>
+
+                        {{ user.phone|default:"Not provided" }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Age
+                    </span>
+
+                    <strong>
+
+                        {{ patient.age|default:"Not provided" }}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-row">
+
+                    <span>
+                        Gender
+                    </span>
+
+                    <strong>
+
+                        {{ patient.get_gender_display|default:"Not provided" }}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- FIXED PROFILE BUTTON -->
+
+            <a href="{% url 'patient_profile' %}"
+               class="profile-button">
+
+                View Full Profile
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         UPCOMING APPOINTMENTS
+    ===================================================== -->
+
+    <section class="dashboard-card appointment-card">
+
+
+        <div class="card-header">
+
+            <div>
+
+                <h2>
+                    Upcoming Appointments
+                </h2>
+
+                <p>
+                    Your scheduled consultations
+                </p>
+
+            </div>
+
+
+            <a href="{% url 'my_appointments' %}"
+               class="view-link">
+
+                View All
+
+            </a>
+
+        </div>
+
+
+        {% if upcoming_appointments %}
+
+            <div class="appointment-list">
+
+                {% for appointment in upcoming_appointments %}
+
+                    <div class="appointment-item">
+
+
+                        <div class="appointment-doctor">
+
+                            <div class="doctor-avatar">
+                                👨‍⚕️
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+
+                                    Dr.
+                                    {{ appointment.doctor.user.get_full_name|default:appointment.doctor.user.username }}
+
+                                </h3>
+
+
+                                <p>
+
+                                    {{ appointment.doctor.get_specialization_display }}
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="appointment-date">
+
+                            <strong>
+
+                                {{ appointment.appointment_date }}
+
+                            </strong>
+
+                            <span>
+
+                                {{ appointment.appointment_time }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="appointment-status">
+
+                            <span class="status-badge">
+
+                                {{ appointment.get_status_display }}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📅
+                </div>
+
+                <h3>
+                    No Upcoming Appointments
+                </h3>
+
+                <p>
+
+                    You don't have any appointments
+                    scheduled yet.
+
+                </p>
+
+
+                <a href="{% url 'book_appointment' %}"
+                   class="primary-button">
+
+                    Book an Appointment
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>
+
+            <p>
+
+                © 2026 Evora Hospital.
+                All Rights Reserved.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <p>
+                Patient Portal
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</main>
+
+
+</body>
+
+</html>

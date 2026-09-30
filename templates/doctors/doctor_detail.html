@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Details · EVORA HOSPITAL</title>
+
+    <!-- Poppins & Inter hybrid — modern, clean, professional -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========== GLOBAL RESET & TYPOGRAPHY ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            background: #f3f7fc;
+            color: #1e293b;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== NAVBAR — refined, softer, modern ========== */
+        .navbar {
+            background: linear-gradient(145deg, #0a58ca 0%, #0d6efd 100%);
+            color: white;
+            padding: 1.1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+        }
+
+        .navbar h2 {
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar h2::before {
+            content: "🏥";
+            font-size: 1.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ========== CONTAINER ========== */
+        .container {
+            width: 90%;
+            max-width: 960px;
+            margin: 3rem auto 4rem;
+        }
+
+        /* ========== CARD — elevated, airy, soft border ========== */
+        .doctor-detail-card {
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 2.8rem 2.8rem;
+            box-shadow: 0 20px 40px -12px rgba(0, 27, 58, 0.15),
+                        0 4px 18px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(13, 110, 253, 0.08);
+            transition: all 0.25s ease;
+        }
+
+        /* ========== HEADER — centered, spacious ========== */
+        .doctor-header {
+            text-align: center;
+            margin-bottom: 2.8rem;
+            position: relative;
+        }
+
+        .doctor-icon {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, #e7f0ff 0%, #d4e4ff 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.8rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 12px 20px -8px rgba(13, 110, 253, 0.2);
+            border: 3px solid white;
+            transition: transform 0.2s ease;
+        }
+
+        .doctor-icon:hover {
+            transform: scale(1.02);
+        }
+
+        .doctor-header h1 {
+            color: #0b2b4f;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .doctor-header p {
+            color: #4a5e74;
+            font-size: 1.15rem;
+            font-weight: 500;
+            background: #eff6ff;
+            display: inline-block;
+            padding: 0.4rem 1.5rem;
+            border-radius: 60px;
+            letter-spacing: 0.2px;
+            border: 1px solid rgba(13, 110, 253, 0.15);
+        }
+
+        /* ========== DETAILS GRID — consistent, modern ========== */
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .detail-box {
+            background: #f9fcff;
+            padding: 1.2rem 1.5rem;
+            border-radius: 18px;
+            border: 1px solid rgba(13, 110, 253, 0.1);
+            border-left: 5px solid #0d6efd;
+            transition: all 0.15s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+        }
+
+        .detail-box:hover {
+            background: #ffffff;
+            border-left-width: 7px;
+            box-shadow: 0 10px 18px -10px rgba(13, 110, 253, 0.2);
+        }
+
+        .detail-box strong {
+            display: block;
+            color: #1e3a5f;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .detail-box span {
+            color: #0b2b4f;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: block;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        /* badge for availability — extra polish */
+        .detail-box span .available-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #e6f7e6;
+            color: #0a6b2f;
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .detail-box span .unavailable-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #ffe9e9;
+            color: #b02a2a;
+            padding: 0.2rem 0.8rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* ========== BIO SECTION ========== */
+        .bio {
+            margin-top: 1.5rem;
+            padding: 1.8rem 2rem;
+            background: #f4f9ff;
+            border-radius: 24px;
+            border: 1px solid rgba(13, 110, 253, 0.1);
+            box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .bio h3 {
+            color: #0d6efd;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .bio h3::before {
+            content: "📋";
+            font-size: 1.4rem;
+        }
+
+        .bio p {
+            color: #2c3e54;
+            line-height: 1.7;
+            font-size: 1.02rem;
+            font-weight: 400;
+        }
+
+        /* ========== BUTTONS — clean, modern, tactile ========== */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .book-btn {
+            padding: 1rem 2.4rem;
+            background: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            box-shadow: 0 10px 20px -8px #0d6efd80;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .book-btn:hover {
+            background: #0b5ed7;
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -10px #0d6efd90;
+        }
+
+        .book-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 6px 12px -6px #0d6efd;
+        }
+
+        .back-link {
+            padding: 1rem 2.4rem;
+            background: #ffffff;
+            color: #1e3a5f;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border: 1.5px solid #cbd5e1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+            letter-spacing: 0.2px;
+        }
+
+        .back-link:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+            color: #0b2b4f;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 680px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .navbar h2 {
+                font-size: 1.3rem;
+            }
+
+            .navbar h2::before {
+                font-size: 1.4rem;
+            }
+
+            .back-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .container {
+                width: 94%;
+                margin: 2rem auto 3rem;
+            }
+
+            .doctor-detail-card {
+                padding: 1.8rem 1.5rem;
+                border-radius: 28px;
+            }
+
+            .doctor-icon {
+                width: 90px;
+                height: 90px;
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .doctor-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .doctor-header p {
+                font-size: 1rem;
+                padding: 0.3rem 1.2rem;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+                gap: 0.9rem;
+            }
+
+            .detail-box {
+                padding: 1rem 1.2rem;
+            }
+
+            .detail-box span {
+                font-size: 1.1rem;
+            }
+
+            .bio {
+                padding: 1.3rem 1.3rem;
+            }
+
+            .bio p {
+                font-size: 0.98rem;
+            }
+
+            .buttons {
+                gap: 0.8rem;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .book-btn,
+            .back-link {
+                padding: 0.9rem 1.5rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .doctor-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .detail-box span {
+                font-size: 1rem;
+            }
+        }
+
+        /* smooth focus for accessibility */
+        a:focus-visible {
+            outline: 3px solid #0d6efd;
+            outline-offset: 3px;
+            border-radius: 60px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR — modern, glassy touch -->
+    <div class="navbar">
+        <h2>EVORA HOSPITAL</h2>
+        <a href="{% url 'doctor_list' %}" class="back-btn">
+            ← Back to Doctors
+        </a>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+
+        <div class="doctor-detail-card">
+
+            <!-- DOCTOR HEADER -->
+            <div class="doctor-header">
+                <div class="doctor-icon">
+                    👨‍⚕️
+                </div>
+
+                <h1>
+                    Dr. {{ doctor.user.get_full_name|default:doctor.user.username }}
+                </h1>
+
+                <p>
+                    {{ doctor.get_specialization_display }}
+                </p>
+            </div>
+
+            <!-- DETAILS GRID -->
+            <div class="details">
+
+                <div class="detail-box">
+                    <strong>Specialization</strong>
+                    <span>{{ doctor.get_specialization_display }}</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Qualification</strong>
+                    <span>{{ doctor.qualification }}</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Experience</strong>
+                    <span>{{ doctor.experience }} years</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Consultation Fee</strong>
+                    <span>₹{{ doctor.consultation_fee }}</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Available Days</strong>
+                    <span>{{ doctor.available_days|default:"Not specified" }}</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Available Time</strong>
+                    <span>{{ doctor.available_time|default:"Not specified" }}</span>
+                </div>
+
+                <div class="detail-box">
+                    <strong>Availability</strong>
+                    <span>
+                        {% if doctor.is_available %}
+                            <span class="available-badge">🟢 Available</span>
+                        {% else %}
+                            <span class="unavailable-badge">🔴 Not Available</span>
+                        {% endif %}
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- BIO (conditional) -->
+            {% if doctor.bio %}
+                <div class="bio">
+                    <h3>About the Doctor</h3>
+                    <p>{{ doctor.bio }}</p>
+                </div>
+            {% endif %}
+
+            <!-- ACTION BUTTONS -->
+            <div class="buttons">
+                <a href="{% url 'book_appointment' %}?doctor={{ doctor.id }}" class="book-btn">
+                    📅 Book Appointment
+                </a>
+
+                <a href="{% url 'doctor_list' %}" class="back-link">
+                    ← Back to Doctors
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

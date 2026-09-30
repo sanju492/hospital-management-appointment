@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Doctor Appointments | Evora Hospital</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f8fc;
+        }
+
+        .navbar {
+
+            background: #123b63;
+
+            color: white;
+
+            padding: 18px 40px;
+
+            display: flex;
+
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+
+            max-width: 1100px;
+
+            margin: 40px auto;
+
+            padding: 20px;
+        }
+
+        h1 {
+
+            color: #123b63;
+
+            margin-bottom: 25px;
+        }
+
+        .appointment {
+
+            background: white;
+
+            padding: 25px;
+
+            margin-bottom: 20px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .appointment h2 {
+
+            color: #123b63;
+
+            margin-bottom: 15px;
+        }
+
+        .info {
+
+            margin: 9px 0;
+
+            color: #555;
+        }
+
+        .status {
+
+            font-weight: bold;
+        }
+
+        .actions {
+
+            margin-top: 20px;
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+        button {
+
+            padding: 10px 16px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .accept {
+            background: #16a085;
+        }
+
+        .reject {
+            background: #e74c3c;
+        }
+
+        .complete {
+            background: #7c4dff;
+        }
+
+        .empty {
+
+            background: white;
+
+            padding: 40px;
+
+            text-align: center;
+
+            border-radius: 12px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="navbar">
+
+        <h2>
+            EVORA HOSPITAL
+        </h2>
+
+        <a href="{% url 'doctor_dashboard' %}">
+            Dashboard
+        </a>
+
+    </div>
+
+
+    <div class="container">
+
+        <h1>
+            📅 My Appointments
+        </h1>
+
+
+        {% for appointment in appointments %}
+
+            <div class="appointment">
+
+
+                <h2>
+
+                    Patient:
+
+                    {{ appointment.patient.user.get_full_name|default:appointment.patient.user.username }}
+
+                </h2>
+
+
+                <div class="info">
+
+                    <strong>
+                        Email:
+                    </strong>
+
+                    {{ appointment.patient.user.email }}
+
+                </div>
+
+
+                <div class="info">
+
+                    <strong>
+                        Phone:
+                    </strong>
+
+                    {{ appointment.patient.user.phone }}
+
+                </div>
+
+
+                <div class="info">
+
+                    <strong>
+                        Date:
+                    </strong>
+
+                    {{ appointment.appointment_date }}
+
+                </div>
+
+
+                <div class="info">
+
+                    <strong>
+                        Time:
+                    </strong>
+
+                    {{ appointment.appointment_time }}
+
+                </div>
+
+
+                <div class="info">
+
+                    <strong>
+                        Reason:
+                    </strong>
+
+                    {{ appointment.reason|default:"Not specified" }}
+
+                </div>
+
+
+                <div class="info">
+
+                    <strong>
+                        Status:
+                    </strong>
+
+                    {{ appointment.get_status_display }}
+
+                </div>
+
+
+                {% if appointment.status == 'pending' %}
+
+                    <div class="actions">
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'update_appointment_status' appointment.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="status"
+                                value="accepted"
+                            >
+
+                            <button
+                                type="submit"
+                                class="accept"
+                            >
+                                Accept
+                            </button>
+
+                        </form>
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'update_appointment_status' appointment.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="status"
+                                value="rejected"
+                            >
+
+                            <button
+                                type="submit"
+                                class="reject"
+                            >
+                                Reject
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+
+                {% elif appointment.status == 'accepted' %}
+
+
+                    <div class="actions">
+
+
+                        <form
+                            method="POST"
+                            action="{% url 'update_appointment_status' appointment.id %}"
+                        >
+
+                            {% csrf_token %}
+
+                            <input
+                                type="hidden"
+                                name="status"
+                                value="completed"
+                            >
+
+                            <button
+                                type="submit"
+                                class="complete"
+                            >
+                                Mark Completed
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+        {% empty %}
+
+
+            <div class="empty">
+
+                <h2>
+                    No Appointments
+                </h2>
+
+                <p>
+                    No patient appointments available.
+                </p>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+</body>
+
+</html>
